@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h2>Lista de Produtos</h2>
+</div>
+
+<div class="alert alert-sucesso" *ngIf="mensagemSucesso">{{ mensagemSucesso }}</div>
+<div class="alert alert-erro" *ngIf="mensagemErro">{{ mensagemErro }}</div>
+
+<div class="carregando" *ngIf="carregando">Carregando...</div>
+
+<div *ngIf="!carregando && produtos.length === 0 && !mensagemErro" class="vazio">
+  Nenhum produto cadastrado. <a routerLink="/novo-produto">Cadastre um produto</a>.
+</div>
+
+<table *ngIf="produtos.length > 0" class="tabela">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Tipo</th>
+      <th>Preço</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let produto of produtos">
+      <td>{{ produto.id }}</td>
+      <td>{{ produto.nome }}</td>
+      <td><span class="badge">{{ produto.tipoProdutoNome }}</span></td>
+      <td>{{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}</td>
+      <td>
+        <button class="btn btn-remover" (click)="remover(produto.id, produto.nome)">Remover</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
